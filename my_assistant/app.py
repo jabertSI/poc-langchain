@@ -5,8 +5,14 @@ from utils import (
     send_email_with_readable_response,
     create_event_with_readable_response,
 )
+import logging
+from logging import getLogger
+
 
 def main():
+    app_logger = getLogger()
+    app_logger.addHandler(logging.StreamHandler())
+    app_logger.setLevel(logging.INFO)
 
     st.title("Assistant Email + Calendrier Automatique")
 
@@ -38,4 +44,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()

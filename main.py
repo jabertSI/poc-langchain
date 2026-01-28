@@ -1,5 +1,8 @@
 import subprocess
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Chemin vers app.py dans le module
 current_dir = os.path.dirname(os.path.abspath(__file__))

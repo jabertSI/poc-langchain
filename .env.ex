@@ -1,0 +1,3 @@
+DEFAULT_EMAIL=me@example.com
+SMTP_ADRESS=localhost
+SMTP_PORT=1025
