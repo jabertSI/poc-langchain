@@ -19,7 +19,7 @@ def send_email_with_readable_response(user_text: str):
         tool_call = response_email_chain.tool_calls[0]
         result = send_email.invoke(tool_call["args"])
         print(result)
-
+#TODO : REACT AGENT !!!! 
     return response_chain.invoke({"tool_output": response_email_chain})
 
 
