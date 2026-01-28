@@ -5,30 +5,27 @@ import logging
 from logging import getLogger
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from schemas import EmailInput
 
 app_logger = getLogger(__name__)
 app_logger.info("TOOLS")
 
 
-#@tool
+@tool(args_schema=EmailInput)
 def send_email(to: str, subject: str, body: str) -> str:
     """Envoie un email.
-
     Args:
-        to: Destinataire
-        subject: sujet du mail
-        body: text du mail
+    to: Destinataire
+    subject: sujet du mail
+    body: text du mail
     """
     app_logger.info("send_email")
-
-
     msg = MIMEMultipart()
     msg["From"] = os.getenv('DEFAULT_EMAIL')
     msg["To"] = to
     msg["Subject"] = subject
     msg.attach(MIMEText(body, 'plain'))
 
-    # SMTP local MailHog
     try:
         with smtplib.SMTP(os.getenv('SMTP_ADRESS'), os.getenv('SMTP_PORT')) as smtp:
             smtp.send_message(msg)

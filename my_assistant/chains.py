@@ -7,6 +7,7 @@ from prompts import (
     conversation_prompt,
 )
 from tools import send_email, create_calendar_event
+from langchain_core.output_parsers import PydanticToolsParser
 
 # Router
 from schemas import Route

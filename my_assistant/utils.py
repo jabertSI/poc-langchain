@@ -13,10 +13,14 @@ def send_email_with_readable_response(user_text: str):
     app_logger.info("send_email_with_readable_response")
     app_logger.info(user_text)
 
-    tool_output = email_chain.invoke({"input": user_text})
-    app_logger.info(tool_output)
+    response_email_chain = email_chain.invoke({"input": user_text})
+    app_logger.info(response_email_chain)
+    if response_email_chain.tool_calls:
+        tool_call = response_email_chain.tool_calls[0]
+        result = send_email.invoke(tool_call["args"])
+        print(result)
 
-    return response_chain.invoke({"tool_output": tool_output})
+    return response_chain.invoke({"tool_output": response_email_chain})
 
 
 def create_event_with_readable_response(user_text: str):
