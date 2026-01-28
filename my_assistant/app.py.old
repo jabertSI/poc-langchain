@@ -1,0 +1,38 @@
+import streamlit as st
+from chains import conversation_chain
+from utils import (
+    route_user_input,
+    send_email_with_readable_response,
+    create_event_with_readable_response,
+)
+
+st.title("Assistant Email + Calendrier Automatique")
+
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+# Historique
+st.markdown("### Historique des échanges")
+for user_text, assistant in st.session_state.history:
+    st.markdown(f"**Vous :** {user_text}")
+    if type(assistant) == str:
+        st.markdown(f"**Assistant :** {assistant}")
+    else:
+        st.markdown(f"**Assistant :** {assistant.content}")
+    st.markdown("---")
+
+# Saisie utilisateur
+user_input = st.text_area("Tapez votre demande", "")
+
+if st.button("Envoyer") and user_input.strip():
+    destination = route_user_input(user_input)
+
+    if destination == "send_email":
+        response = send_email_with_readable_response(user_input)
+    elif destination == "create_calendar_event":
+        response = create_event_with_readable_response(user_input)
+    else:
+        response = conversation_chain.invoke({"input": user_input})
+
+    st.session_state.history.append((user_input, response))
+    user_input = ""
