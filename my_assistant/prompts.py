@@ -17,19 +17,21 @@ Ta tâche est de décider quel outil utiliser :
 )
 
 # Email
-email_prompt = ChatPromptTemplate.from_messages([
-    (
-        "system",
-        """Tu es un assistant qui extrait les informations pour envoyer un email.
+email_prompt = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """Tu es un assistant qui extrait les informations pour envoyer un email.
 Analyse le texte et appelle le tool send_email avec les paramètres appropriés :
 - to : adresse email du destinataire
 - subject : sujet clair et concis
 - body : corps du message complet
 
-        Si le sujet n'est pas explicite, crée-en un pertinent basé sur le contenu."""
-    ),
-    ("human", "{input}"),
-])
+        Si le sujet n'est pas explicite, crée-en un pertinent basé sur le contenu.""",
+        ),
+        ("human", "{input}"),
+    ]
+)
 
 
 # Calendrier

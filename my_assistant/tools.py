@@ -1,7 +1,6 @@
 import os
 import smtplib
 from langchain.tools import tool
-import logging
 from logging import getLogger
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -11,7 +10,7 @@ app_logger = getLogger(__name__)
 app_logger.info("TOOLS")
 
 
-@tool(args_schema=EmailInput)
+@tool
 def send_email(to: str, subject: str, body: str) -> str:
     """Envoie un email.
     Args:
@@ -21,13 +20,13 @@ def send_email(to: str, subject: str, body: str) -> str:
     """
     app_logger.info("send_email")
     msg = MIMEMultipart()
-    msg["From"] = os.getenv('DEFAULT_EMAIL')
+    msg["From"] = os.getenv("DEFAULT_EMAIL")
     msg["To"] = to
     msg["Subject"] = subject
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, "plain"))
 
     try:
-        with smtplib.SMTP(os.getenv('SMTP_ADRESS'), os.getenv('SMTP_PORT')) as smtp:
+        with smtplib.SMTP(os.getenv("SMTP_ADRESS"), os.getenv("SMTP_PORT")) as smtp:
             smtp.send_message(msg)
         app_logger.info("MAILHOG")
         return f"Email sent to {to} (via MailHog)"
