@@ -2,9 +2,9 @@ from pydantic import BaseModel, Field
 
 
 class EmailInput(BaseModel):
-    to: str
-    subject: str
-    body: str
+    to: str = Field(description="Adresse email du destinataire")
+    subject: str = Field(description="Sujet de l'email")
+    body: str = Field(description="Corps du message")
 
 
 class CalendarInput(BaseModel):

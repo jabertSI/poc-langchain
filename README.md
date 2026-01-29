@@ -28,10 +28,20 @@ https://docs.ollama.com/linux
 ```bash
 git clone https://github.com/your-username/poc-langchain.git
 cd poc-langchain
+cp .env.ex .env
+poetry install
 ```
 
 ## 📦 Running the App
 ```bash
+poetry shell
 python main.py
+---> http://localhost:8501/
 ```
 
+## 📦 Mailhog
+
+```bash
+docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+--> http://localhost:8025/
+```

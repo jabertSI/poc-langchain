@@ -21,15 +21,18 @@ email_prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            """Tu es un assistant qui extrait automatiquement les informations pour envoyer un email.
-Renvoie TO, SUBJECT et BODY de manière complète.
-Si certaines informations ne sont pas dans le texte, invente un sujet court clair.
-Renvoie uniquement les champs du Pydantic EmailInput en JSON.
-     Ensuite appelle le tool send_email.""",
+            """Tu es un assistant qui extrait les informations pour envoyer un email.
+Analyse le texte et appelle le tool send_email avec les paramètres appropriés :
+- to : adresse email du destinataire
+- subject : sujet clair et concis
+- body : corps du message complet
+
+        Si le sujet n'est pas explicite, crée-en un pertinent basé sur le contenu.""",
         ),
         ("human", "{input}"),
     ]
 )
+
 
 # Calendrier
 calendar_prompt = ChatPromptTemplate.from_messages(
