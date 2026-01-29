@@ -1,39 +1,47 @@
-from chains import router_llm, email_chain, calendar_chain, response_chain, agent_email
+from chains import response_chain
 from logging import getLogger
-from tools import send_email
+import streamlit as st
+from langgraph.types import Command
 
 app_logger = getLogger(__name__)
 
 
-def route_user_input(user_text: str):
-    route = router_llm.invoke({"input": user_text})
-    return route.destination
+def display_interupt_streamlit(interrupt_: dict):
+    resume = {}
 
+    for interupt in interrupt_.value["action_requests"]:
+        interupt_args = interupt.get("args", {})
+        to = interupt_args.get("to", "N/A")
+        subject = interupt_args.get("subject", "N/A")
+        body = interupt_args.get("body", "N/A")
 
-def send_email_with_readable_response(user_text: str):
-    app_logger.info("send_email_with_readable_response")
-    app_logger.info(user_text)
+        with st.chat_message("assistant"):
+            st.write("Je suis prêt à envoyer cet email :")
+            with st.container(border=True):
+                st.write(f"**📬** {to}")
+                st.write(f"**📝** {subject}")
+                st.divider()
+                st.text(body)
 
-    #REACT AGENT WAY
-    result_react_agent = agent_email.invoke({
-        "messages": [("user", user_text)]
-    })
-
-    app_logger.info(result_react_agent)
-    return response_chain.invoke({"tool_output": result_react_agent})
-
-    # MAN WAY
-    #response_email_chain = email_chain.invoke({"input": user_text})
-    #app_logger.info(response_email_chain)
-    #if response_email_chain.tool_calls:
-    #    tool_call = response_email_chain.tool_calls[0]
-    #    result = send_email.invoke(tool_call["args"])
-    #    print(result)
-    #return response_chain.invoke({"tool_output": response_email_chain})
-
-   ## TODO : REACT AGENT !!!!
-
-
-def create_event_with_readable_response(user_text: str):
-    tool_output = calendar_chain.invoke({"input": user_text})
-    return response_chain.invoke({"tool_output": tool_output})
+def ia_placeholder():
+    return """
+    <style>
+    .typing {
+    display: inline-block;
+    }
+    .typing span {
+    animation: blink 1.4s infinite;
+    }
+    .typing span:nth-child(2) {
+    animation-delay: 0.2s;
+    }
+    .typing span:nth-child(3) {
+    animation-delay: 0.4s;
+    }
+    @keyframes blink {
+    0%, 60%, 100% { opacity: 1; }
+    30% { opacity: 0.3; }
+    }
+    </style>
+    <div class="typing"><span>.</span><span>.</span><span>.</span></div>
+    """

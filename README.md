@@ -17,7 +17,7 @@ The interface uses **Streamlit** with chat bubbles (`st.chat_message`) and an in
 
 ---
 
-## 📦 Installation
+## Installation
 
 1. Install Olloma and ministral-3
 https://docs.ollama.com/linux
@@ -32,14 +32,14 @@ cp .env.ex .env
 poetry install
 ```
 
-## 📦 Running the App
+## Running the App
 ```bash
 poetry shell
 python main.py
 ---> http://localhost:8501/
 ```
 
-## 📦 Mailhog
+## Mailhog
 
 ```bash
 docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
