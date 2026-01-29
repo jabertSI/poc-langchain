@@ -1,21 +1,47 @@
 from chains import response_chain
 from logging import getLogger
-from agents import agent_email
+import streamlit as st
+from langgraph.types import Command
 
 app_logger = getLogger(__name__)
 
 
-def send_email_with_readable_response(user_text: str):
-    app_logger.info("send_email_with_readable_response")
-    app_logger.info(user_text)
+def display_interupt_streamlit(interrupt_: dict):
+    resume = {}
 
-    # REACT AGENT WAY
-    result_react_agent = agent_email.invoke({"messages": [("user", user_text)]})
+    for interupt in interrupt_.value["action_requests"]:
+        interupt_args = interupt.get("args", {})
+        to = interupt_args.get("to", "N/A")
+        subject = interupt_args.get("subject", "N/A")
+        body = interupt_args.get("body", "N/A")
 
-    app_logger.info(result_react_agent)
-    return response_chain.invoke({"tool_output": result_react_agent})
+        with st.chat_message("assistant"):
+            st.write("Je suis prêt à envoyer cet email :")
+            with st.container(border=True):
+                st.write(f"**📬** {to}")
+                st.write(f"**📝** {subject}")
+                st.divider()
+                st.text(body)
 
-
-def create_event_with_readable_response(user_text: str):
-    #
-    return
+def ia_placeholder():
+    return """
+    <style>
+    .typing {
+    display: inline-block;
+    }
+    .typing span {
+    animation: blink 1.4s infinite;
+    }
+    .typing span:nth-child(2) {
+    animation-delay: 0.2s;
+    }
+    .typing span:nth-child(3) {
+    animation-delay: 0.4s;
+    }
+    @keyframes blink {
+    0%, 60%, 100% { opacity: 1; }
+    30% { opacity: 0.3; }
+    }
+    </style>
+    <div class="typing"><span>.</span><span>.</span><span>.</span></div>
+    """

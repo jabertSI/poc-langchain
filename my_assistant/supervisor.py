@@ -2,6 +2,7 @@ from langchain.tools import tool
 from langchain.agents import create_agent
 from llm_setup import llm
 from agents import email_agent, calendar_agent
+from langgraph.checkpoint.memory import InMemorySaver
 
 
 @tool
@@ -46,4 +47,5 @@ supervisor_agent = create_agent(
     llm,
     tools=[schedule_event, manage_email],
     system_prompt=SUPERVISOR_PROMPT,
+    checkpointer=InMemorySaver(),
 )

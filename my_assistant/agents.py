@@ -3,6 +3,7 @@ from llm_setup import llm
 from tools import send_email, create_calendar_event
 from langchain.agents.structured_output import ToolStrategy
 from schemas import EmailInput
+from langchain.agents.middleware import HumanInTheLoopMiddleware
 
 react_agent_system_prompt = """
 Tu es un assistant qui extrait les informations pour envoyer un email.
@@ -17,6 +18,12 @@ email_agent = create_agent(
     [send_email],
     system_prompt=react_agent_system_prompt,
     response_format=ToolStrategy(EmailInput),
+    middleware=[
+        HumanInTheLoopMiddleware(
+            interrupt_on={"send_email": True},
+            description_prefix="Outbound email pending approval",
+        ),
+    ],
 )
 
 
