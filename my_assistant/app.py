@@ -1,5 +1,6 @@
 from streamlit_app import StreamlitChatApp
 
+
 def main():
     app = StreamlitChatApp()
     app.run()
