@@ -10,7 +10,7 @@ app_logger = getLogger(__name__)
 app_logger.info("TOOLS")
 
 
-@tool
+@tool(args_schema=EmailInput)
 def send_email(to: str, subject: str, body: str) -> str:
     """Envoie un email.
     Args:

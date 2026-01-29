@@ -49,6 +49,6 @@ agent_email = create_agent(
     llm,
     [send_email],
     system_prompt=react_agent_system_prompt,  # ← Voici où vous ajoutez votre prompt !
-    response_format=ToolStrategy(EmailInput)
+    #response_format=ToolStrategy(EmailInput)
 
 )
