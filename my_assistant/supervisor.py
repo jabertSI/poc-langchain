@@ -40,6 +40,7 @@ SUPERVISOR_PROMPT = (
     "Vous pouvez planifier des événements de calendrier et envoyer des e-mails. "
     "Décomposez les demandes des utilisateurs en appels d’outils appropriés et coordonnez les résultats. "
     "Lorsqu’une demande implique plusieurs actions, utilisez plusieurs outils de manière séquentielle."
+    "Tu peux soit créer un événements soit envoyer un mail ou faire les deux en mêmes temps avec les différents outils à ta disposition "
     "Dans la réponse tu dois afficher tout les détails tools, contenue du mail et sont sujet et les infos de l'evénement."
 )
 
