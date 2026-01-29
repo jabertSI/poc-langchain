@@ -1,9 +1,9 @@
 from langchain.agents import create_agent
-from llm_setup import llm
-from tools import send_email, create_calendar_event
-from langchain.agents.structured_output import ToolStrategy
-from schemas import EmailInput
 from langchain.agents.middleware import HumanInTheLoopMiddleware
+from langchain.agents.structured_output import ToolStrategy
+from llm_setup import llm
+from schemas import EmailInput
+from tools import create_calendar_event, send_email
 
 react_agent_system_prompt = """
 Tu es un assistant qui extrait les informations pour envoyer un email.

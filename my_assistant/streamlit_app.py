@@ -1,11 +1,10 @@
-import streamlit as st
-from chains import conversation_chain
 import logging
 from logging import getLogger
+
+import streamlit as st
+from langgraph.types import Command, Interrupt
 from supervisor import supervisor_agent
 from utils import display_interupt_streamlit, ia_placeholder
-from langgraph.types import Interrupt
-from langgraph.types import Command
 
 
 class StreamlitChatApp:
@@ -177,7 +176,7 @@ class StreamlitChatApp:
         # Chat input (désactivé si en attente d'interruption)
         user_input = st.chat_input(
             "Tapez votre message...",
-            disabled=st.session_state.waiting_interrupt
+            disabled=st.session_state.waiting_interrupt,
         )
 
         if user_input:

@@ -1,13 +1,11 @@
-from chains import response_chain
 from logging import getLogger
+
 import streamlit as st
-from langgraph.types import Command
 
 app_logger = getLogger(__name__)
 
 
 def display_interupt_streamlit(interrupt_: dict):
-    resume = {}
 
     for interupt in interrupt_.value["action_requests"]:
         interupt_args = interupt.get("args", {})
@@ -22,6 +20,7 @@ def display_interupt_streamlit(interrupt_: dict):
                 st.write(f"**📝** {subject}")
                 st.divider()
                 st.text(body)
+
 
 def ia_placeholder():
     return """
