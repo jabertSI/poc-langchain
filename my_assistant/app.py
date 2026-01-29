@@ -1,10 +1,5 @@
 import streamlit as st
 from chains import conversation_chain
-from utils import (
-    route_user_input,
-    send_email_with_readable_response,
-    create_event_with_readable_response,
-)
 import logging
 from logging import getLogger
 
@@ -23,15 +18,7 @@ def main():
     user_input = st.chat_input("Tapez votre message...")
 
     if user_input:
-        # Calculer la réponse immédiatement
-        destination = route_user_input(user_input)
-
-        if destination == "send_email":
-            response = send_email_with_readable_response(user_input)
-        elif destination == "create_calendar_event":
-            response = create_event_with_readable_response(user_input)
-        else:
-            response = conversation_chain.invoke({"input": user_input})
+        response = conversation_chain.invoke({"input": user_input})
 
         # Ajouter les deux à l'historique avant d'afficher
         st.session_state.history.append((user_input, response))
