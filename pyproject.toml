@@ -20,6 +20,22 @@ python-dotenv = "^1.2.1"
 black = "^26.1.0"
 flake8 = "^7.3.0"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.14.14"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]  # E=errors, F=pyflakes, I=isort
+fix = true
+
+[tool.ruff.isort]
+known-first-party = ["poc-langchain"]

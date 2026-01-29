@@ -1,4 +1,5 @@
 from logging import getLogger
+
 import streamlit as st
 
 app_logger = getLogger(__name__)

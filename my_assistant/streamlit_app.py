@@ -1,10 +1,10 @@
-import streamlit as st
 import logging
 from logging import getLogger
+
+import streamlit as st
+from langgraph.types import Command, Interrupt
 from supervisor import supervisor_agent
 from utils import display_interupt_streamlit, ia_placeholder
-from langgraph.types import Interrupt
-from langgraph.types import Command
 
 
 class StreamlitChatApp:
@@ -33,9 +33,7 @@ class StreamlitChatApp:
             if isinstance(assistant, Interrupt):
                 display_interupt_streamlit(assistant)
             else:
-                reply_text = (
-                    assistant if isinstance(assistant, str) else assistant.content
-                )
+                reply_text = assistant if isinstance(assistant, str) else assistant.content
                 st.chat_message("assistant").write(reply_text)
 
     def display_interrupt_buttons(self):
@@ -43,9 +41,7 @@ class StreamlitChatApp:
         if not st.session_state.waiting_interrupt:
             return
 
-        st.info(
-            f"⏳ Décision requise pour l'interruption ID: {st.session_state.interrupt_id}"
-        )
+        st.info(f"⏳ Décision requise pour l'interruption ID: {st.session_state.interrupt_id}")
 
         col1, col2 = st.columns(2)
 
@@ -96,9 +92,7 @@ class StreamlitChatApp:
 
         decision_type = st.session_state.user_decision
         interrupt_id = st.session_state.interrupt_id
-        decision_text = (
-            f"{'✅ Approuvé' if decision_type == 'approve' else '❌ Rejeté'}"
-        )
+        decision_text = f"{'✅ Approuvé' if decision_type == 'approve' else '❌ Rejeté'}"
 
         st.chat_message("user").write(decision_text)
 
@@ -107,9 +101,7 @@ class StreamlitChatApp:
             message_placeholder.markdown(ia_placeholder(), unsafe_allow_html=True)
 
             # Reprendre avec la décision
-            stream_input = Command(
-                resume={interrupt_id: {"decisions": [{"type": decision_type}]}}
-            )
+            stream_input = Command(resume={interrupt_id: {"decisions": [{"type": decision_type}]}})
 
             full_response = ""
             interrupts = []
@@ -183,7 +175,8 @@ class StreamlitChatApp:
 
         # Chat input (désactivé si en attente d'interruption)
         user_input = st.chat_input(
-            "Tapez votre message...", disabled=st.session_state.waiting_interrupt
+            "Tapez votre message...",
+            disabled=st.session_state.waiting_interrupt,
         )
 
         if user_input:

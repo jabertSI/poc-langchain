@@ -1,9 +1,10 @@
 import os
 import smtplib
-from langchain.tools import tool
-from logging import getLogger
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from logging import getLogger
+
+from langchain.tools import tool
 
 app_logger = getLogger(__name__)
 app_logger.info("TOOLS")
