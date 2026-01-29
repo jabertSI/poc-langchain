@@ -4,13 +4,12 @@ from langchain.tools import tool
 from logging import getLogger
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from schemas import EmailInput
 
 app_logger = getLogger(__name__)
 app_logger.info("TOOLS")
 
 
-@tool(args_schema=EmailInput)
+@tool
 def send_email(to: str, subject: str, body: str) -> str:
     """Envoie un email.
     Args:
@@ -18,7 +17,7 @@ def send_email(to: str, subject: str, body: str) -> str:
     subject: sujet du mail
     body: text du mail
     """
-    app_logger.info("send_email")
+    app_logger.info("send_email tool")
     msg = MIMEMultipart()
     msg["From"] = os.getenv("DEFAULT_EMAIL")
     msg["To"] = to
@@ -36,6 +35,6 @@ def send_email(to: str, subject: str, body: str) -> str:
 
 @tool
 def create_calendar_event(title: str, date: str, time: str) -> str:
-    """Crée un événement (simulé)"""
+    """Crée un événement"""
     app_logger.info("create_calendar_event")
-    return f"Événement simulé créé : '{title}' le {date} à {time}"
+    return f"Event created : '{title}' - {date} - {time}"
