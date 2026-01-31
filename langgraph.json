@@ -1,0 +1,7 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+        "supervisor_agent": "./my_assistant/supervisor.py:supervisor_agent"
+    },
+    "env": ".env"
+}

@@ -1,8 +1,8 @@
-from agents import calendar_agent, email_agent
+from my_assistant.agents import calendar_agent, email_agent
 from langchain.agents import create_agent
 from langchain.tools import tool
 from langgraph.checkpoint.memory import InMemorySaver
-from llm_setup import llm
+from my_assistant.llm_setup import llm
 
 
 @tool
