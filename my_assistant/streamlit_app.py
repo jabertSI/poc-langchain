@@ -3,8 +3,8 @@ from logging import getLogger
 
 import streamlit as st
 from langgraph.types import Command, Interrupt
-from supervisor import supervisor_agent
-from utils import display_interupt_streamlit, ia_placeholder
+from my_assistant.supervisor import supervisor_agent
+from my_assistant.utils import display_interupt_streamlit, ia_placeholder
 
 
 class StreamlitChatApp:

@@ -1,4 +1,4 @@
-from streamlit_app import StreamlitChatApp
+from my_assistant.streamlit_app import StreamlitChatApp
 
 
 def main():

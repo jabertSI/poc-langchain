@@ -5,10 +5,8 @@ from .streamlit_app import StreamlitChatApp
 from .supervisor import supervisor_agent
 from .tools import create_calendar_event, send_email
 from .utils import (
-    create_event_with_readable_response,
     display_interupt_streamlit,
     ia_placeholder,
-    send_email_with_readable_response,
 )
 
 __all__ = [
@@ -20,8 +18,6 @@ __all__ = [
     "supervisor_agent",
     "create_calendar_event",
     "send_email",
-    "create_event_with_readable_response",
     "display_interupt_streamlit",
     "ia_placeholder",
-    "send_email_with_readable_response",
 ]
